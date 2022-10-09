@@ -52,4 +52,12 @@ router.post('/', (req, res) => {
 
 })
 
+router.get("/", (req, res) => {
+    var query = "SELECT * FROM vehical"
+    connection.query(query, (err, rows) => {
+        if (err) console.log(err)
+        res.send(rows)
+    })
+})
+
 module.exports = router
