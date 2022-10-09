@@ -60,4 +60,44 @@ router.get("/", (req, res) => {
     })
 })
 
+router.put("/", (req, res) => {
+
+    const vehicalNumber = req.body.vehicalNumber
+    const otherDetails = req.body.otherDetails
+    console.log(vehicalNumber+"  "+otherDetails)
+  
+    var query = "UPDATE vehical SET otherDetails=? WHERE vehicalNumber=?";
+    connection.query(query,[otherDetails,vehicalNumber],(err) => {
+        if (err) {
+            res.send({
+                'status' : '200',
+                'message': 'Vehical Updated Fail'
+            })
+        } else {
+            res.send({
+                'status' : '200',
+                'message': 'Vehical Successfully Updated'
+            })
+        }
+      } )
+  });
+
+  router.delete("/:id", (req, res) => {
+    let id = req.params.id;
+    var query = "DELETE FROM vehical WHERE vehicalNumber=?";
+    connection.query(query, [id], (err) => {
+      if (err) {
+        res.send({
+            'status' : '200',
+            'message': 'Vehical Delete Fail'
+        })
+      } else {
+        res.send({
+            'status' : '200',
+            'message': 'Vehical Successfully Deleted'
+        })
+      }
+    });
+  });
+
 module.exports = router
